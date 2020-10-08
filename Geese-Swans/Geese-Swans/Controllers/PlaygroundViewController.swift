@@ -7,14 +7,22 @@
 
 import UIKit
 
-class PlaygroundViewController: UIViewController {
+class PlaygroundViewController: UIViewController, ViewControllerDelegate {
     
-    @IBOutlet weak var navigationBarView: UIView!
-    @IBOutlet weak var showBirdsListButton: UIButton!
-    @IBOutlet weak var landAllBirdsButton: UIButton!
-    @IBOutlet weak var addNewBird: UIButton!
+    
+    // MARK: -Properties
+    
     @IBOutlet weak var skyView: UIView!
     @IBOutlet weak var landView: UIView!
+    @IBOutlet weak var addNewBird: UIButton!
+    @IBOutlet weak var navigationBarView: UIView!
+    @IBOutlet weak var landAllBirdsButton: UIButton!
+    @IBOutlet weak var showBirdsListButton: UIButton!
+    
+    var birdsList = DatabaseManager.shared.getCoreDataBirds()
+
+    
+    // MARK: -Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,10 +31,11 @@ class PlaygroundViewController: UIViewController {
     }
     
     func setup() {
-        navigationBarView.layer.cornerRadius = 15
-        showBirdsListButton.layer.cornerRadius = 10
-        landAllBirdsButton.layer.cornerRadius = 10
         addNewBird.layer.cornerRadius = 10
+        navigationBarView.layer.cornerRadius = 15
+        landAllBirdsButton.layer.cornerRadius = 10
+        showBirdsListButton.layer.cornerRadius = 10
+        
         skyView.layer.cornerRadius = 35
         skyView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         
@@ -52,5 +61,12 @@ class PlaygroundViewController: UIViewController {
     }
     
     @IBAction func landBirdButtonClick(_ sender: Any) {
+    }
+    
+    
+    // MARK: -delegate pattern
+    
+    func updateInterface() {
+        birdsList = DatabaseManager.shared.getCoreDataBirds()
     }
 }
