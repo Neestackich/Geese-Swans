@@ -7,16 +7,17 @@
 
 import UIKit
 
-class BirdsListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class BirdsListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ViewControllerDelegate {
 
     
     // MARK: -Properties
     
-    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var backButton: UIButton!
+    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var addBirdButton: UIButton!
     
-    var birdsList: [String] = ["Bird0", "Bird1", "Bird2", "Bird3", "Bird4"]
+    var birdsList = DatabaseManager.shared.getCoreDataBirds()
+    
     
     // MARK: -Methods
     
@@ -44,9 +45,19 @@ class BirdsListViewController: UIViewController, UITableViewDelegate, UITableVie
     @IBAction func addBirdButtonClick(_ sender: Any) {
         let addBirdViewController = storyboard?.instantiateViewController(withIdentifier: "AddBirdViewController") as! AddBirdViewController
         addBirdViewController.modalPresentationStyle = .fullScreen
+        addBirdViewController.delegate = self
         
         present(addBirdViewController, animated: true)
     }
+    
+    
+    // MARK: -delegate pattern
+    
+    func updateInterface() {
+        birdsList = DatabaseManager.shared.getCoreDataBirds()
+        tableView.reloadData()
+    }
+    
     
     // MARK: -tableView methods
     
@@ -56,6 +67,8 @@ class BirdsListViewController: UIViewController, UITableViewDelegate, UITableVie
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let birdTableViewCell = tableView.dequeueReusableCell(withIdentifier: "BirdTableViewCell") as! BirdTableViewCell
+        birdTableViewCell.birdColor.backgroundColor = birdsList[indexPath.row].color
+        
         if indexPath.row % 2 == 0 {
             // green cell
             birdTableViewCell.cellMainView.backgroundColor = UIColor(red: 161/255, green: 204/255, blue: 188/255, alpha: 1)
