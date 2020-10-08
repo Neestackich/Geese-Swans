@@ -21,10 +21,14 @@ class AddBirdViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var sizeTextField: UITextField!
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var colorTableView: UITableView!
+    @IBOutlet weak var squareImage: UIImageView!
+    @IBOutlet weak var triangleImage: UIImageView!
+    @IBOutlet weak var squareViewButton: UIView!
+    @IBOutlet weak var triangleViewButton: UIView!
     
     var figureType: Figure?
     var delegate: ViewControllerDelegate?
-    var colors: [UIColor] = [.red, .blue, .orange, .green, .black, .brown]
+    var colors: [UIColor] = [.red, .blue, .orange, .green, .black, .brown, .darkGray, .purple, .cyan]
     
     
     // MARK: -Methods
@@ -39,6 +43,8 @@ class AddBirdViewController: UIViewController, UITableViewDelegate, UITableViewD
         colorTableView.delegate = self
         colorTableView.dataSource = self
         
+        squareImage.layer.cornerRadius = 20
+        triangleImage.layer.cornerRadius = 20
         form.layer.cornerRadius = 15
         backButton.layer.cornerRadius = 10
         saveButton.layer.cornerRadius = 28
@@ -47,10 +53,29 @@ class AddBirdViewController: UIViewController, UITableViewDelegate, UITableViewD
         nameTextField.layer.cornerRadius = 10
         colorTableView.layer.cornerRadius = 25
         navigationBarView.layer.cornerRadius = 15
+        
+        colorTableView.isHidden = true
+        
+        sizeTextField.text = String(Int.random(in: 35...65))
+        
+        colorView.backgroundColor = colors[Int.random(in: 0...8)]
+        colorView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(showHideColorTable)))
+        triangleViewButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(chooseTriangle)))
+        squareViewButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(chooseSquare)))
+        
+        randomFigure()
     }
     
     override func viewDidLayoutSubviews() {
         colorView.layer.cornerRadius = colorView.bounds.height / 2
+    }
+    
+    func randomFigure() {
+        if Int.random(in: 0...1) == 0 {
+            chooseSquare()
+        } else {
+            chooseTriangle()
+        }
     }
     
     func checkFields() -> TextFieldsStatus {
@@ -62,7 +87,7 @@ class AddBirdViewController: UIViewController, UITableViewDelegate, UITableViewD
         let size = unwrappedSize.trimmingCharacters(in: .whitespacesAndNewlines)
         
         if let size = Float(size) {
-            if size >= 35 && size <= 65 && name.count <= 20 {
+            if size >= 35 && size <= 65 {
                 return .allValid
             } else {
                 return .invalidSize
@@ -75,6 +100,30 @@ class AddBirdViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     // MARK: -buttons' handlers
     
+    @IBAction func increaseSizeButtonClick(_ sender: Any) {
+        guard let size = sizeTextField.text else {
+            return
+        }
+        
+        if let size = Int(size) {
+            if size < 65 {
+                sizeTextField.text = String(size + 1)
+            }
+        }
+    }
+    
+    @IBAction func decreaseSizeButtonClick(_ sender: Any) {
+        guard let size = sizeTextField.text else {
+            return
+        }
+        
+        if let size = Int(size) {
+            if size > 35 {
+                sizeTextField.text = String(size - 1)
+            }
+        }
+    }
+    
     @IBAction func clearButtonClick(_ sender: Any) {
         sizeTextField.text?.removeAll()
         nameTextField.text?.removeAll()
@@ -86,14 +135,9 @@ class AddBirdViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     @IBAction func saveButtonClick(_ sender: Any) {
         let textFIeldsStatus = checkFields()
-        figureType = .square
+        
         switch textFIeldsStatus {
         case .allFieldsAreInvalid:
-            break
-            //подсветить поле
-            //если пользователь вводит данные
-            //подсветка пропадает
-        case .invalidName:
             break
             //подсветить поле
             //если пользователь вводит данные
@@ -116,6 +160,28 @@ class AddBirdViewController: UIViewController, UITableViewDelegate, UITableViewD
         delegate!.updateInterface()
     }
     
+    @objc func showHideColorTable() {
+        if colorTableView.isHidden {
+            colorTableView.isHidden = false
+        } else {
+            colorTableView.isHidden = true
+        }
+    }
+    
+    @objc func chooseTriangle() {
+        figureType = .triangle
+        
+        triangleImage.backgroundColor = UIColor(red: 197/255, green: 141/255, blue: 139/255, alpha: 1)
+        squareImage.backgroundColor = UIColor(red: 237/255, green: 168/255, blue: 165/255, alpha: 1)
+    }
+    
+    @objc func chooseSquare() {
+        figureType = .square
+        
+        squareImage.backgroundColor = UIColor(red: 197/255, green: 141/255, blue: 139/255, alpha: 1)
+        triangleImage.backgroundColor = UIColor(red: 237/255, green: 168/255, blue: 165/255, alpha: 1)
+    }
+    
     
     // MARK: -tableView methods
     
@@ -132,5 +198,6 @@ class AddBirdViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         colorView.backgroundColor = colors[indexPath.row]
+        showHideColorTable()
     }
 }
