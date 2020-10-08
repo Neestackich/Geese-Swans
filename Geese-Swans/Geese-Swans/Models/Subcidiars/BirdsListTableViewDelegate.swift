@@ -5,4 +5,8 @@
 //  Created by Neestackich on 08.10.2020.
 //
 
-import Foundation
+import UIKit
+
+protocol ViewControllerDelegate {
+    func updateInterface()
+}
