@@ -10,6 +10,7 @@ import UIKit
 class BirdTableViewCell: UITableViewCell {
 
     @IBOutlet weak var cellMainView: UIView!
+    @IBOutlet weak var birdColor: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -23,5 +24,6 @@ class BirdTableViewCell: UITableViewCell {
     
     func setup() {
         cellMainView.layer.cornerRadius = 25
+        birdColor.layer.cornerRadius = 40
     }
 }
