@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+import UIKit
 
 
 extension Bird {
@@ -16,7 +17,7 @@ extension Bird {
         return NSFetchRequest<Bird>(entityName: "Bird")
     }
 
-    @NSManaged public var color: NSObject?
+    @NSManaged public var color: UIColor?
     @NSManaged public var isFlying: Bool
     @NSManaged public var name: String?
     @NSManaged public var size: Float
