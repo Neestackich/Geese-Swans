@@ -6,3 +6,8 @@
 //
 
 import Foundation
+
+enum Figure: String {
+    case triangle = "triangle"
+    case square = "square"
+}
