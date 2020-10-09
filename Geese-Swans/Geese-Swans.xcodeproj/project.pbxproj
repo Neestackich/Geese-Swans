@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE01CA94253044C80011E113 /* BirdsCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE01CA93253044C80011E113 /* BirdsCreator.swift */; };
 		CE3A6A40252CA3D800AE1260 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3A6A3F252CA3D800AE1260 /* AppDelegate.swift */; };
 		CE3A6A42252CA3D800AE1260 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3A6A41252CA3D800AE1260 /* SceneDelegate.swift */; };
 		CE3A6A47252CA3D800AE1260 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE3A6A45252CA3D800AE1260 /* Main.storyboard */; };
@@ -17,10 +18,17 @@
 		CE3A6A64252CABEC00AE1260 /* AddBirdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3A6A63252CABEC00AE1260 /* AddBirdViewController.swift */; };
 		CE3A6A67252CAC2B00AE1260 /* PlaygroundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3A6A66252CAC2B00AE1260 /* PlaygroundViewController.swift */; };
 		CE3A6A6A252D11FC00AE1260 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3A6A69252D11FC00AE1260 /* DatabaseManager.swift */; };
+		CE81D814252EF7F4000F10EB /* ColorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE81D813252EF7F4000F10EB /* ColorCell.swift */; };
+		CE81D818252F06A1000F10EB /* Bird+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE81D816252F06A1000F10EB /* Bird+CoreDataClass.swift */; };
+		CE81D819252F06A1000F10EB /* Bird+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE81D817252F06A1000F10EB /* Bird+CoreDataProperties.swift */; };
+		CE81D81C252F0C93000F10EB /* BirdsListTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE81D81B252F0C93000F10EB /* BirdsListTableViewDelegate.swift */; };
+		CE9A3BE3252E484B001DBA29 /* TextFieldsStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9A3BE2252E484B001DBA29 /* TextFieldsStatus.swift */; };
+		CE9A3BE6252E4C56001DBA29 /* Figure.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9A3BE5252E4C56001DBA29 /* Figure.swift */; };
 		CEB66976252DCFDC006CED84 /* BirdTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB66975252DCFDC006CED84 /* BirdTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CE01CA93253044C80011E113 /* BirdsCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirdsCreator.swift; sourceTree = "<group>"; };
 		CE3A6A3C252CA3D800AE1260 /* Geese-Swans.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Geese-Swans.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE3A6A3F252CA3D800AE1260 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CE3A6A41252CA3D800AE1260 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -33,6 +41,12 @@
 		CE3A6A63252CABEC00AE1260 /* AddBirdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBirdViewController.swift; sourceTree = "<group>"; };
 		CE3A6A66252CAC2B00AE1260 /* PlaygroundViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaygroundViewController.swift; sourceTree = "<group>"; };
 		CE3A6A69252D11FC00AE1260 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
+		CE81D813252EF7F4000F10EB /* ColorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorCell.swift; sourceTree = "<group>"; };
+		CE81D816252F06A1000F10EB /* Bird+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Bird+CoreDataClass.swift"; path = "Geese-Swans/Models/Entities/Bird+CoreDataClass.swift"; sourceTree = "<group>"; };
+		CE81D817252F06A1000F10EB /* Bird+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Bird+CoreDataProperties.swift"; path = "Geese-Swans/Models/Entities/Bird+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		CE81D81B252F0C93000F10EB /* BirdsListTableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirdsListTableViewDelegate.swift; sourceTree = "<group>"; };
+		CE9A3BE2252E484B001DBA29 /* TextFieldsStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldsStatus.swift; sourceTree = "<group>"; };
+		CE9A3BE5252E4C56001DBA29 /* Figure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Figure.swift; sourceTree = "<group>"; };
 		CEB66975252DCFDC006CED84 /* BirdTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirdTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -50,6 +64,8 @@
 		CE3A6A33252CA3D800AE1260 = {
 			isa = PBXGroup;
 			children = (
+				CE81D816252F06A1000F10EB /* Bird+CoreDataClass.swift */,
+				CE81D817252F06A1000F10EB /* Bird+CoreDataProperties.swift */,
 				CE3A6A3E252CA3D800AE1260 /* Geese-Swans */,
 				CE3A6A3D252CA3D800AE1260 /* Products */,
 			);
@@ -91,6 +107,7 @@
 			isa = PBXGroup;
 			children = (
 				CEB66975252DCFDC006CED84 /* BirdTableViewCell.swift */,
+				CE81D813252EF7F4000F10EB /* ColorCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -108,6 +125,7 @@
 		CE3A6A5A252CA8F800AE1260 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				CE9A3BE1252E4829001DBA29 /* Subcidiars */,
 				CE3A6A5C252CA92000AE1260 /* Entities */,
 				CE3A6A5B252CA91900AE1260 /* Managers */,
 			);
@@ -118,6 +136,7 @@
 			isa = PBXGroup;
 			children = (
 				CE3A6A69252D11FC00AE1260 /* DatabaseManager.swift */,
+				CE01CA93253044C80011E113 /* BirdsCreator.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -136,6 +155,16 @@
 				CE3A6A4D252CA3DA00AE1260 /* LaunchScreen.storyboard */,
 			);
 			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		CE9A3BE1252E4829001DBA29 /* Subcidiars */ = {
+			isa = PBXGroup;
+			children = (
+				CE9A3BE2252E484B001DBA29 /* TextFieldsStatus.swift */,
+				CE9A3BE5252E4C56001DBA29 /* Figure.swift */,
+				CE81D81B252F0C93000F10EB /* BirdsListTableViewDelegate.swift */,
+			);
+			path = Subcidiars;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -208,13 +237,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE81D814252EF7F4000F10EB /* ColorCell.swift in Sources */,
 				CE3A6A4A252CA3D800AE1260 /* Geese_Swans.xcdatamodeld in Sources */,
 				CE3A6A40252CA3D800AE1260 /* AppDelegate.swift in Sources */,
 				CE3A6A42252CA3D800AE1260 /* SceneDelegate.swift in Sources */,
+				CE81D818252F06A1000F10EB /* Bird+CoreDataClass.swift in Sources */,
+				CE9A3BE6252E4C56001DBA29 /* Figure.swift in Sources */,
+				CE01CA94253044C80011E113 /* BirdsCreator.swift in Sources */,
 				CE3A6A61252CAB6100AE1260 /* BirdsListViewController.swift in Sources */,
 				CE3A6A64252CABEC00AE1260 /* AddBirdViewController.swift in Sources */,
+				CE81D81C252F0C93000F10EB /* BirdsListTableViewDelegate.swift in Sources */,
 				CE3A6A67252CAC2B00AE1260 /* PlaygroundViewController.swift in Sources */,
+				CE81D819252F06A1000F10EB /* Bird+CoreDataProperties.swift in Sources */,
 				CEB66976252DCFDC006CED84 /* BirdTableViewCell.swift in Sources */,
+				CE9A3BE3252E484B001DBA29 /* TextFieldsStatus.swift in Sources */,
 				CE3A6A6A252D11FC00AE1260 /* DatabaseManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

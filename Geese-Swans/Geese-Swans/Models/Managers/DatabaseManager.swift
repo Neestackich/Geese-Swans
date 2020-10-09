@@ -34,7 +34,7 @@ class DatabaseManager {
         return true
     }
     
-    func addBirdToCoreData(size: Int16, color: String, name: String, type: String) {
+    func addBirdToCoreData(size: Float, color: UIColor, name: String, type: String, x: Float, y: Float, isFlying: Bool) {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
         let entity = NSEntityDescription.entity(forEntityName: "Bird", in: context)
@@ -45,6 +45,9 @@ class DatabaseManager {
             bird.color = color
             bird.name = name
             bird.type = type
+            bird.isFlying = isFlying
+            bird.x = x
+            bird.y = y
             
             do {
                 try context.save()
@@ -67,5 +70,29 @@ class DatabaseManager {
             }
             
             return []
+    }
+    
+    func updateCoreDataBird() {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+    }
+    
+    func coreDataCleanUp(birds: [Bird]) {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        
+        for bird in birds {
+            do {
+                try context.delete(bird)
+            } catch {
+                print("Delete error")
+            }
         }
+        
+        do {
+            try context.save()
+        } catch {
+            print("saved after delete")
+        }
+    }
 }

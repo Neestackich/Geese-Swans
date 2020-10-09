@@ -7,14 +7,22 @@
 
 import UIKit
 
-class PlaygroundViewController: UIViewController {
+class PlaygroundViewController: UIViewController, ViewControllerDelegate {
     
-    @IBOutlet weak var navigationBarView: UIView!
-    @IBOutlet weak var showBirdsListButton: UIButton!
-    @IBOutlet weak var landAllBirdsButton: UIButton!
-    @IBOutlet weak var addNewBird: UIButton!
+    
+    // MARK: -Properties
+    
     @IBOutlet weak var skyView: UIView!
     @IBOutlet weak var landView: UIView!
+    @IBOutlet weak var addNewBird: UIButton!
+    @IBOutlet weak var navigationBarView: UIView!
+    @IBOutlet weak var landAllBirdsButton: UIButton!
+    @IBOutlet weak var showBirdsListButton: UIButton!
+    
+    var birdsList: [Bird] = []
+
+    
+    // MARK: -Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,16 +30,30 @@ class PlaygroundViewController: UIViewController {
         setup()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        birdsList = DatabaseManager.shared.getCoreDataBirds()
+        addBirdsToPlayground()
+    }
+    
     func setup() {
-        navigationBarView.layer.cornerRadius = 15
-        showBirdsListButton.layer.cornerRadius = 10
-        landAllBirdsButton.layer.cornerRadius = 10
         addNewBird.layer.cornerRadius = 10
+        navigationBarView.layer.cornerRadius = 15
+        landAllBirdsButton.layer.cornerRadius = 10
+        showBirdsListButton.layer.cornerRadius = 10
+        
         skyView.layer.cornerRadius = 35
         skyView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         
         landView.layer.cornerRadius = 10
         landView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+    }
+    
+    func addBirdsToPlayground() {
+        for bird in birdsList {
+            if let newBird = BirdsCreator.shared.createBird(type: bird.type, bird: bird) {
+                skyView.addSubview(newBird)
+            }
+        }
     }
     
     
@@ -47,10 +69,22 @@ class PlaygroundViewController: UIViewController {
     @IBAction func addBirdButtonClick(_ sender: Any) {
         let addBirdViewController = storyboard?.instantiateViewController(withIdentifier: "AddBirdViewController") as! AddBirdViewController
         addBirdViewController.modalPresentationStyle = .fullScreen
+        addBirdViewController.delegate = self
         
         present(addBirdViewController, animated: true)
     }
     
-    @IBAction func landBirdButtonClick(_ sender: Any) {
+    @IBAction func deleteBirdsButtonClick(_ sender: Any) {
+        DatabaseManager.shared.coreDataCleanUp(birds: birdsList)
+        skyView.subviews.forEach {
+            $0.removeFromSuperview()
+        }
+    }
+    
+    
+    // MARK: -delegate pattern
+    
+    func updateInterface() {
+        birdsList = DatabaseManager.shared.getCoreDataBirds()
     }
 }
