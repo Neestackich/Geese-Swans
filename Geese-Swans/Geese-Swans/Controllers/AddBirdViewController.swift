@@ -28,7 +28,7 @@ class AddBirdViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     var figureType: Figure?
     var delegate: ViewControllerDelegate?
-    var colors: [UIColor] = [.red, .blue, .orange, .green, .black, .brown, .darkGray, .purple, .cyan, .yellow]
+    var colors: [UIColor] = [.red, .blue, .orange, .green, .black, .brown, .darkGray, .purple, .cyan, .yellow, .gray]
     
     
     // MARK: -Methods
@@ -44,9 +44,9 @@ class AddBirdViewController: UIViewController, UITableViewDelegate, UITableViewD
         colorTableView.dataSource = self
         
         form.layer.cornerRadius = 15
-        squareImage.layer.cornerRadius = 20
         backButton.layer.cornerRadius = 10
         saveButton.layer.cornerRadius = 28
+        squareImage.layer.cornerRadius = 20
         clearButton.layer.cornerRadius = 10
         triangleImage.layer.cornerRadius = 20
         sizeTextField.layer.cornerRadius = 10
@@ -58,7 +58,7 @@ class AddBirdViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         sizeTextField.text = String(Int.random(in: 35...65))
         
-        colorView.backgroundColor = colors[Int.random(in: 0...9)]
+        colorView.backgroundColor = colors[Int.random(in: 0..<colors.count)]
         colorView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(showHideColorTable)))
         triangleViewButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(chooseTriangle)))
         squareViewButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(chooseSquare)))
