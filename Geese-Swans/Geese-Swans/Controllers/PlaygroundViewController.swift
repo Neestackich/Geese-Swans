@@ -19,7 +19,7 @@ class PlaygroundViewController: UIViewController, ViewControllerDelegate {
     @IBOutlet weak var landAllBirdsButton: UIButton!
     @IBOutlet weak var showBirdsListButton: UIButton!
     
-    var birdsList = DatabaseManager.shared.getCoreDataBirds()
+    var birdsList: [Bird] = []
 
     
     // MARK: -Methods
@@ -28,6 +28,11 @@ class PlaygroundViewController: UIViewController, ViewControllerDelegate {
         super.viewDidLoad()
         
         setup()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        birdsList = DatabaseManager.shared.getCoreDataBirds()
+        addBirdsToPlayground()
     }
     
     func setup() {
@@ -43,6 +48,14 @@ class PlaygroundViewController: UIViewController, ViewControllerDelegate {
         landView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
     }
     
+    func addBirdsToPlayground() {
+        for bird in birdsList {
+            if let newBird = BirdsCreator.shared.createBird(type: bird.type, bird: bird) {
+                skyView.addSubview(newBird)
+            }
+        }
+    }
+    
     
     // MARK: -buttons' handlers
     
@@ -56,11 +69,16 @@ class PlaygroundViewController: UIViewController, ViewControllerDelegate {
     @IBAction func addBirdButtonClick(_ sender: Any) {
         let addBirdViewController = storyboard?.instantiateViewController(withIdentifier: "AddBirdViewController") as! AddBirdViewController
         addBirdViewController.modalPresentationStyle = .fullScreen
+        addBirdViewController.delegate = self
         
         present(addBirdViewController, animated: true)
     }
     
-    @IBAction func landBirdButtonClick(_ sender: Any) {
+    @IBAction func deleteBirdsButtonClick(_ sender: Any) {
+        DatabaseManager.shared.coreDataCleanUp(birds: birdsList)
+        skyView.subviews.forEach {
+            $0.removeFromSuperview()
+        }
     }
     
     
