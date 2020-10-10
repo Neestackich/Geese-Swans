@@ -14,9 +14,17 @@ class DatabaseManager {
     // MARK: -Properties
     
     static let shared = DatabaseManager()
-    
+   
+    var appDelegate: AppDelegate!
+    var context: NSManagedObjectContext!
     
     // MARK: -Methods
+    
+    init() {
+        appDelegate = UIApplication.shared.delegate as! AppDelegate
+        context = appDelegate.persistentContainer.viewContext
+    }
+    
     
     func coreDataIsEmpty() -> Bool {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -35,8 +43,6 @@ class DatabaseManager {
     }
     
     func addBirdToCoreData(size: Float, color: UIColor, name: String, type: String, x: Float, y: Float, isFlying: Bool) {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
         let entity = NSEntityDescription.entity(forEntityName: "Bird", in: context)
         
         if let entity = entity {
@@ -59,22 +65,23 @@ class DatabaseManager {
     }
     
     func getCoreDataBirds() -> [Bird] {
-            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-            let context = appDelegate.persistentContainer.viewContext
-            let fetchRequest: NSFetchRequest<Bird> = Bird.fetchRequest()
+        let fetchRequest: NSFetchRequest<Bird> = Bird.fetchRequest()
             
-            do {
-                return try context.fetch(fetchRequest)
-            } catch {
-                print("Fetch error")
-            }
-            
-            return []
+        do {
+            return try context.fetch(fetchRequest)
+        } catch {
+            print("Fetch error")
+        }
+        
+        return []
     }
     
     func updateCoreDataBird() {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
+        do {
+            try context.save()
+        } catch {
+            
+        }
     }
     
     func coreDataCleanUp(birds: [Bird]) {
