@@ -156,8 +156,6 @@ class PlaygroundViewController: UIViewController, ViewControllerDelegate {
             
             self.birdsOnPlayground[birdView]?.x = Float(birdView.center.x - birdView.bounds.width / 2)
         } else {
-            // останавливаем таймер
-            // спускаем и ведем по земле вьюшку
             timer.invalidate()
             birdView.layer.removeAllAnimations()
 
