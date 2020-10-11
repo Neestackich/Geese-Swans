@@ -19,8 +19,10 @@ class PlaygroundViewController: UIViewController, ViewControllerDelegate {
     @IBOutlet weak var landAllBirdsButton: UIButton!
     @IBOutlet weak var showBirdsListButton: UIButton!
     
+    var birdMovementTimer: Timer?
     var birdsList: [Bird] = []
     var birdsOnPlayground: [UIView : Bird] = [:]
+    var birdsInFlight: [UIView: Timer] = [:]
     
     
     // MARK: -Methods
@@ -116,25 +118,71 @@ class PlaygroundViewController: UIViewController, ViewControllerDelegate {
                 print("ended")
                 birdsOnPlayground[gesture.view!]?.isFlying = true
                 
-                let queue = DispatchQueue.global(qos: .default)
-                queue.async {
-                    let animation = CABasicAnimation(keyPath: "position")
-                    animation.duration = 5.0
-                    
-                    DispatchQueue.main.async {
-                        animation.fromValue = [gesture.view!.center.x, gesture.view!.center.y]
-                        animation.toValue = [(self.skyView.bounds.minX + gesture.view!.bounds.width / 2), gesture.view!.center.y]
-                        gesture.view!.layer.add(animation, forKey: "position")
-                        
-                        gesture.view!.center.x = self.skyView.bounds.minX + gesture.view!.bounds.width / 2
-                        self.birdsOnPlayground[gesture.view!]?.x = Float(self.skyView.bounds.minX)
-                        DatabaseManager.shared.updateCoreDataBird()
-                    }
-                }
+                birdMovementTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerHandler), userInfo: gesture.view!, repeats: true)
             }
         }
         
         DatabaseManager.shared.updateCoreDataBird()
+    }
+    
+    @objc func timerHandler(timer: Timer) {
+        guard let birdView = timer.userInfo as? UIView else {
+            return
+        }
+        
+        if birdView.center.x > self.skyView.bounds.minX + birdView.bounds.width  {
+            let randomLength = CGFloat.random(in: 50...100)
+            print(randomLength)
+            
+            let movementAnimation = CABasicAnimation(keyPath: "position")
+            movementAnimation.duration = 1.0
+            movementAnimation.fromValue = [birdView.center.x, birdView.center.y]
+            movementAnimation.toValue = [birdView.center.x - randomLength, birdView.center.y]
+            
+            let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation")
+            rotationAnimation.fromValue = 0.0
+            rotationAnimation.toValue = Float.pi * 2
+            rotationAnimation.duration = 1
+            rotationAnimation.repeatCount = 1
+            
+            birdView.layer.add(movementAnimation, forKey: "position")
+            birdView.layer.add(rotationAnimation, forKey: "transform.rotation")
+            birdView.center.x -= randomLength
+            
+            self.birdsOnPlayground[birdView]?.x = Float(birdView.center.x - birdView.bounds.width / 2)
+        } else {
+            // останавливаем таймер
+            // спускаем и ведем по земле вьюшку
+            timer.invalidate()
+            birdView.layer.removeAllAnimations()
+
+            while birdView.center.y < self.skyView.bounds.maxY - 16 - birdView.bounds.height / 2 {
+                let randomLength = CGFloat.random(in: 1...2)
+                print(birdView.center.y)
+
+                UIView.animate(
+                    withDuration: 1,
+                    animations: {
+                        birdView.center.y += randomLength
+                    },
+                        completion: {_ in
+                            let randomLength = CGFloat.random(in: 50...self.skyView.bounds.maxX - birdView.bounds.width)
+
+                            UIView.animate(
+                                withDuration: 1,
+                                animations: {
+                                    birdView.center.x = randomLength
+                                },
+                                completion: {_ in
+                                    self.birdsOnPlayground[birdView]?.y = Float(birdView.center.y - birdView.bounds.height / 2)
+                                    self.birdsOnPlayground[birdView]?.x = Float(birdView.center.x - birdView.bounds.width / 2)
+                                    self.birdsOnPlayground[birdView]?.isFlying = false
+
+                                    DatabaseManager.shared.updateCoreDataBird()
+                                })
+                        })
+            }
+        }
     }
     
     @objc func skyTapHandler() {
@@ -151,6 +199,9 @@ class PlaygroundViewController: UIViewController, ViewControllerDelegate {
                 
                 $0.center.x = landedCoordinateX
                 $0.center.y = landedCoordinateY
+                $0.layer.removeAllAnimations()
+                
+                birdMovementTimer?.invalidate()
                 
                 birdsOnPlayground[$0]?.x = Float(landedCoordinateX - viewWidth / 2)
                 birdsOnPlayground[$0]?.y = Float(landedCoordinateY - viewHeight / 2)
@@ -168,6 +219,7 @@ class PlaygroundViewController: UIViewController, ViewControllerDelegate {
         skyView.subviews.forEach {
             $0.removeFromSuperview()
         }
+        
         birdsList = DatabaseManager.shared.getCoreDataBirds()
         addBirdsToPlayground()
     }
