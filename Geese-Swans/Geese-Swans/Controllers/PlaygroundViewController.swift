@@ -19,7 +19,6 @@ class PlaygroundViewController: UIViewController, ViewControllerDelegate {
     @IBOutlet weak var landAllBirdsButton: UIButton!
     @IBOutlet weak var showBirdsListButton: UIButton!
     
-    var birdMovementTimer: Timer?
     var birdsList: [Bird] = []
     var birdsOnPlayground: [UIView : Bird] = [:]
     var birdsInFlight: [UIView: Timer] = [:]
@@ -118,7 +117,13 @@ class PlaygroundViewController: UIViewController, ViewControllerDelegate {
                 print("ended")
                 birdsOnPlayground[gesture.view!]?.isFlying = true
                 
-                birdMovementTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerHandler), userInfo: gesture.view!, repeats: true)
+                let birdMovementTimer = Timer.scheduledTimer(
+                    timeInterval: 1,
+                    target: self,
+                    selector: #selector(timerHandler),
+                    userInfo: gesture.view!,
+                    repeats: true)
+                birdsInFlight[gesture.view!] = birdMovementTimer
             }
         }
         
@@ -151,8 +156,6 @@ class PlaygroundViewController: UIViewController, ViewControllerDelegate {
             
             self.birdsOnPlayground[birdView]?.x = Float(birdView.center.x - birdView.bounds.width / 2)
         } else {
-            // останавливаем таймер
-            // спускаем и ведем по земле вьюшку
             timer.invalidate()
             birdView.layer.removeAllAnimations()
 
@@ -201,7 +204,7 @@ class PlaygroundViewController: UIViewController, ViewControllerDelegate {
                 $0.center.y = landedCoordinateY
                 $0.layer.removeAllAnimations()
                 
-                birdMovementTimer?.invalidate()
+                birdsInFlight[$0]?.invalidate()
                 
                 birdsOnPlayground[$0]?.x = Float(landedCoordinateX - viewWidth / 2)
                 birdsOnPlayground[$0]?.y = Float(landedCoordinateY - viewHeight / 2)
