@@ -17,7 +17,9 @@ class BirdsListViewController: UIViewController, UITableViewDelegate, UITableVie
     @IBOutlet weak var addBirdButton: UIButton!
     @IBOutlet weak var deleteAllBirds: UIButton!
     
+    var skyView: UIView?
     var birdsList: [Bird] = []
+    var delegate: ViewControllerDelegate?
     
     
     // MARK: -Methods
@@ -46,12 +48,14 @@ class BirdsListViewController: UIViewController, UITableViewDelegate, UITableVie
     
     @IBAction func backButtonClick(_ sender: Any) {
         dismiss(animated: true, completion: nil)
+        delegate!.updateInterface()
     }
     
     @IBAction func addBirdButtonClick(_ sender: Any) {
         let addBirdViewController = storyboard?.instantiateViewController(withIdentifier: "AddBirdViewController") as! AddBirdViewController
         addBirdViewController.modalPresentationStyle = .fullScreen
         addBirdViewController.delegate = self
+        addBirdViewController.skyView = skyView
         
         present(addBirdViewController, animated: true)
     }
@@ -78,7 +82,6 @@ class BirdsListViewController: UIViewController, UITableViewDelegate, UITableVie
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let birdTableViewCell = tableView.dequeueReusableCell(withIdentifier: "BirdTableViewCell") as! BirdTableViewCell
-        
         birdTableViewCell.configure(bird: birdsList[indexPath.row])
         
         if indexPath.row % 2 == 0 {

@@ -34,14 +34,14 @@ class BirdsCreator {
     
     func createSquare(_ bird: Bird) -> UIView {
         let newBird = UIView(frame: CGRect(
-                                x: 133,
+                                x: CGFloat(bird.x),
                                 y: CGFloat(bird.y),
                                 width: CGFloat(bird.size),
                                 height: CGFloat(bird.size)))
         newBird.backgroundColor = bird.color
         newBird.layer.cornerRadius = CGFloat(bird.size/6)
         
-        let nameLabel = UILabel(frame: CGRect(x: 0.0, y: 0.0, width: CGFloat(bird.size), height: CGFloat(bird.size/2)))
+        let nameLabel = UILabel(frame: CGRect(x: CGFloat(bird.x), y: CGFloat(bird.y), width: CGFloat(bird.size), height: CGFloat(bird.size/2)))
         nameLabel.center = newBird.center
         nameLabel.text = bird.name
         
@@ -59,7 +59,7 @@ class BirdsCreator {
         newBird.backgroundColor = bird.color
         newBird.layer.cornerRadius = CGFloat(bird.size/6)
         
-        let nameLabel = UILabel(frame: CGRect(x: 0.0, y: 0.0, width: CGFloat(bird.size), height: CGFloat(bird.size/2)))
+        let nameLabel = UILabel(frame: CGRect(x: CGFloat(bird.x), y: CGFloat(bird.y), width: CGFloat(bird.size), height: CGFloat(bird.size/2)))
         nameLabel.center = newBird.center
         nameLabel.text = bird.name
         

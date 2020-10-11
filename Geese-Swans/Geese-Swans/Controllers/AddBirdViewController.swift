@@ -26,10 +26,11 @@ class AddBirdViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var squareViewButton: UIView!
     @IBOutlet weak var triangleViewButton: UIView!
     
+    var skyView: UIView?
     var figureType: Figure?
     var delegate: ViewControllerDelegate?
     var colors: [UIColor] = [.red, .blue, .orange, .green, .black, .brown, .darkGray, .purple, .cyan, .yellow, .gray]
-    
+        
     
     // MARK: -Methods
     
@@ -131,6 +132,7 @@ class AddBirdViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     @IBAction func backButtonClick(_ sender: Any) {
         dismiss(animated: true, completion: nil)
+        delegate!.updateInterface()
     }
     
     @IBAction func saveButtonClick(_ sender: Any) {
@@ -151,8 +153,15 @@ class AddBirdViewController: UIViewController, UITableViewDelegate, UITableViewD
             let size = Float(sizeTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines))
             let name = nameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
             
-            if let size = size, let figureType = figureType {
-                DatabaseManager.shared.addBirdToCoreData(size: size, color: colorView.backgroundColor ?? .black, name: name, type: figureType.rawValue, x: 0, y: 0, isFlying: false)
+            if let size = size, let figureType = figureType, let skyView = skyView {
+                DatabaseManager.shared.addBirdToCoreData(
+                    size: size,
+                    color: colorView.backgroundColor ?? .black,
+                    name: name,
+                    type: figureType.rawValue,
+                    x: Float.random(in: size...Float(skyView.bounds.width) - size),
+                    y: Float(skyView.bounds.height) - size - 16,
+                    isFlying: false)
             }
         }
         

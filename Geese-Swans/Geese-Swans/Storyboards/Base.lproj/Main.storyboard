@@ -500,19 +500,25 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Coord" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Brd-Rq-9o7">
-                                                            <rect key="frame" x="210" y="147" width="48.5" height="25"/>
+                                                            <rect key="frame" x="206" y="147" width="56" height="25"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="56" id="vAI-Am-g2i"/>
+                                                            </constraints>
                                                             <fontDescription key="fontDescription" name="MarkerFelt-Wide" family="Marker Felt" pointSize="19"/>
                                                             <color key="textColor" systemColor="systemGrayColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Y:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mbP-Pn-IdL">
-                                                            <rect key="frame" x="274.5" y="147" width="15" height="25"/>
+                                                            <rect key="frame" x="270" y="147" width="15" height="25"/>
                                                             <fontDescription key="fontDescription" name="MarkerFelt-Wide" family="Marker Felt" pointSize="19"/>
                                                             <color key="textColor" systemColor="systemGrayColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Coord" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Zv-LR-Yjc">
-                                                            <rect key="frame" x="297.5" y="148" width="48.5" height="25"/>
+                                                            <rect key="frame" x="289" y="148" width="56" height="25"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="56" id="NMt-fl-F1z"/>
+                                                            </constraints>
                                                             <fontDescription key="fontDescription" name="MarkerFelt-Wide" family="Marker Felt" pointSize="19"/>
                                                             <color key="textColor" systemColor="systemGrayColor"/>
                                                             <nil key="highlightedColor"/>
@@ -524,10 +530,10 @@
                                                         <constraint firstItem="g6k-Gy-Kqm" firstAttribute="top" secondItem="Xxs-CY-L8D" secondAttribute="top" constant="24" id="33j-Hp-sB8"/>
                                                         <constraint firstItem="8bW-YE-OKn" firstAttribute="top" secondItem="muv-NE-jj2" secondAttribute="bottom" constant="16" id="5Bj-0V-ZGw"/>
                                                         <constraint firstAttribute="height" constant="200" id="6XM-5q-hXN"/>
-                                                        <constraint firstItem="Brd-Rq-9o7" firstAttribute="leading" secondItem="ufo-FJ-nf6" secondAttribute="trailing" constant="8" id="6oc-lI-ah3"/>
+                                                        <constraint firstItem="Brd-Rq-9o7" firstAttribute="leading" secondItem="ufo-FJ-nf6" secondAttribute="trailing" constant="4" id="6oc-lI-ah3"/>
                                                         <constraint firstItem="g6k-Gy-Kqm" firstAttribute="leading" secondItem="BgJ-EZ-pRd" secondAttribute="trailing" constant="8" id="D94-KK-HiB"/>
                                                         <constraint firstItem="Brd-Rq-9o7" firstAttribute="top" secondItem="Xxs-CY-L8D" secondAttribute="top" constant="147" id="DyH-Ic-5D4"/>
-                                                        <constraint firstItem="3Zv-LR-Yjc" firstAttribute="leading" secondItem="mbP-Pn-IdL" secondAttribute="trailing" constant="8" id="HOs-xT-NXb"/>
+                                                        <constraint firstItem="3Zv-LR-Yjc" firstAttribute="leading" secondItem="mbP-Pn-IdL" secondAttribute="trailing" constant="4" id="HOs-xT-NXb"/>
                                                         <constraint firstItem="8bW-YE-OKn" firstAttribute="leading" secondItem="iSv-sG-Beq" secondAttribute="trailing" constant="24" id="HYp-vW-mh4"/>
                                                         <constraint firstItem="ufo-FJ-nf6" firstAttribute="leading" secondItem="iSv-sG-Beq" secondAttribute="trailing" constant="24" id="HZa-Pe-2Ff"/>
                                                         <constraint firstItem="Dfn-9K-Pot" firstAttribute="leading" secondItem="muv-NE-jj2" secondAttribute="trailing" constant="8" id="JtM-4x-ivD"/>
@@ -543,7 +549,7 @@
                                                         <constraint firstItem="muv-NE-jj2" firstAttribute="top" secondItem="BgJ-EZ-pRd" secondAttribute="bottom" constant="16" id="tJ9-3R-gHK"/>
                                                         <constraint firstItem="iSv-sG-Beq" firstAttribute="top" secondItem="Xxs-CY-L8D" secondAttribute="top" constant="24" id="wss-EA-G1G"/>
                                                         <constraint firstItem="ufo-FJ-nf6" firstAttribute="top" secondItem="8bW-YE-OKn" secondAttribute="bottom" constant="16" id="xGl-NV-Neu"/>
-                                                        <constraint firstItem="mbP-Pn-IdL" firstAttribute="leading" secondItem="Brd-Rq-9o7" secondAttribute="trailing" constant="16" id="zcD-Gw-CC2"/>
+                                                        <constraint firstItem="mbP-Pn-IdL" firstAttribute="leading" secondItem="Brd-Rq-9o7" secondAttribute="trailing" constant="8" id="zcD-Gw-CC2"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>
