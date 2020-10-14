@@ -20,6 +20,8 @@ class BirdTableViewCell: UITableViewCell {
     @IBOutlet weak var xCoordinateLabel: UILabel!
     @IBOutlet weak var yCoordinateLabel: UILabel!
     @IBOutlet weak var birdImage: UIImageView!
+    @IBOutlet weak var lastMovementXLabel: UILabel!
+    @IBOutlet weak var lastMovementYLabel: UILabel!
     
     
     // MARK: -Methods
@@ -44,6 +46,8 @@ class BirdTableViewCell: UITableViewCell {
         sizeLabel.text = String(bird.size)
         xCoordinateLabel.text = String(bird.x)
         yCoordinateLabel.text = String(bird.y)
+        lastMovementXLabel.text = String(bird.lastMovementX)
+        lastMovementYLabel.text = String(bird.lastMovementY)
         
         birdImage.tintColor = bird.color
         
