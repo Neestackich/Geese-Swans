@@ -108,7 +108,7 @@
                         <outlet property="landView" destination="tQM-pb-GiG" id="hRc-eC-SiN"/>
                         <outlet property="navigationBarView" destination="Ypq-70-G5f" id="HHZ-QP-RMO"/>
                         <outlet property="showBirdsListButton" destination="Asp-te-qos" id="h0T-gj-e0K"/>
-                        <outlet property="skyView" destination="5gW-wv-HzF" id="nMh-zA-QDL"/>
+                        <outlet property="skyView" destination="5gW-wv-HzF" id="RKO-Pv-PWp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4i3-5I-SUh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
