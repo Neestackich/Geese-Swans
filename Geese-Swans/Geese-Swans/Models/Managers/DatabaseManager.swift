@@ -42,7 +42,7 @@ class DatabaseManager {
         return true
     }
     
-    func addBirdToCoreData(size: Float, color: UIColor, name: String, type: String, x: Float, y: Float, isFlying: Bool) {
+    func addBirdToCoreData(size: Float, color: UIColor, name: String, type: String, x: Float, y: Float, lastMovementX: Float, lastMovementY: Float, isFlying: Bool) {
         let entity = NSEntityDescription.entity(forEntityName: "Bird", in: context)
         
         if let entity = entity {
