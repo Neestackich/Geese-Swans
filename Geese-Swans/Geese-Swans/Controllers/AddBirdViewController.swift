@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AddBirdViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class AddBirdViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
 
     
     // MARK: -Properties
@@ -17,14 +17,14 @@ class AddBirdViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var clearButton: UIButton!
+    @IBOutlet weak var squareViewButton: UIView!
+    @IBOutlet weak var squareImage: UIImageView!
     @IBOutlet weak var navigationBarView: UIView!
     @IBOutlet weak var sizeTextField: UITextField!
     @IBOutlet weak var nameTextField: UITextField!
-    @IBOutlet weak var colorTableView: UITableView!
-    @IBOutlet weak var squareImage: UIImageView!
     @IBOutlet weak var triangleImage: UIImageView!
-    @IBOutlet weak var squareViewButton: UIView!
     @IBOutlet weak var triangleViewButton: UIView!
+    @IBOutlet weak var colorTableView: UITableView!
     
     var skyView: UIView?
     var figureType: Figure?
@@ -43,6 +43,8 @@ class AddBirdViewController: UIViewController, UITableViewDelegate, UITableViewD
     func setup() {
         colorTableView.delegate = self
         colorTableView.dataSource = self
+        
+        sizeTextField.delegate = self
         
         form.layer.cornerRadius = 15
         backButton.layer.cornerRadius = 10
@@ -80,11 +82,10 @@ class AddBirdViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func checkFields() -> TextFieldsStatus {
-        guard let unwrappedName = nameTextField.text, let unwrappedSize = sizeTextField.text else {
-            return .allFieldsAreInvalid
+        guard let unwrappedSize = sizeTextField.text else {
+            return .invalidSize
         }
         
-        let name = unwrappedName.trimmingCharacters(in: .whitespacesAndNewlines)
         let size = unwrappedSize.trimmingCharacters(in: .whitespacesAndNewlines)
         
         if let size = Float(size) {
@@ -139,16 +140,10 @@ class AddBirdViewController: UIViewController, UITableViewDelegate, UITableViewD
         let textFIeldsStatus = checkFields()
         
         switch textFIeldsStatus {
-        case .allFieldsAreInvalid:
-            break
-            //подсветить поле
-            //если пользователь вводит данные
-            //подсветка пропадает
         case .invalidSize:
-            break
-            //подсветить поле
-            //если пользователь вводит данные
-            //подсветка пропадает
+            UIView.animate(withDuration: 2) {
+                self.sizeTextField.textColor = .red
+            }
         case .allValid:
             let size = Float(sizeTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines))
             let name = nameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -161,12 +156,14 @@ class AddBirdViewController: UIViewController, UITableViewDelegate, UITableViewD
                     type: figureType.rawValue,
                     x: Float.random(in: size...Float(skyView.bounds.width) - size),
                     y: Float(skyView.bounds.height) - size - 16,
+                    lastMovementX: Float.random(in: size...Float(skyView.bounds.width) - size),
+                    lastMovementY: Float(skyView.bounds.height) - size - 16,
                     isFlying: false)
+                
+                dismiss(animated: true, completion: nil)
+                delegate!.updateInterface()
             }
         }
-        
-        dismiss(animated: true, completion: nil)
-        delegate!.updateInterface()
     }
     
     @objc func showHideColorTable() {
@@ -208,5 +205,20 @@ class AddBirdViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         colorView.backgroundColor = colors[indexPath.row]
         showHideColorTable()
+    }
+    
+    
+    // MARK: -textField methods
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        sizeTextField.textColor = .systemGray
+    }
+    
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        sizeTextField.textColor = .systemGray
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        sizeTextField.textColor = .systemGray
     }
 }
