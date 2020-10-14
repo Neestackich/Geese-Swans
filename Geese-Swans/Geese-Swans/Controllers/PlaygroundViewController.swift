@@ -212,6 +212,7 @@ class PlaygroundViewController: UIViewController, ViewControllerDelegate {
         } else {
             self.birdsInFlight[birdView]?.invalidate()
             self.birdsInFlight[birdView] = nil
+
             birdView.layer.removeAllAnimations()
 
             while birdView.center.y < self.skyView.bounds.maxY - 16 - birdView.bounds.height / 2 {
