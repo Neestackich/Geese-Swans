@@ -10,5 +10,4 @@ import Foundation
 enum TextFieldsStatus {
     case allValid
     case invalidSize
-    case allFieldsAreInvalid
 }

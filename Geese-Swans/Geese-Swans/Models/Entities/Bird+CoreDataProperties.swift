@@ -24,7 +24,8 @@ extension Bird {
     @NSManaged public var type: String?
     @NSManaged public var x: Float
     @NSManaged public var y: Float
-
+    @NSManaged public var lastMovementX: Float
+    @NSManaged public var lastMovementY: Float
 }
 
 extension Bird : Identifiable {
