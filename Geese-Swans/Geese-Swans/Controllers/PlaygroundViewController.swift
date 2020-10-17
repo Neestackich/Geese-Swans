@@ -179,18 +179,16 @@ class PlaygroundViewController: UIViewController, ViewControllerDelegate {
             return
         }
         
-        // решение проблемы
-        skyView.isUserInteractionEnabled = false
-
+        birdView.isUserInteractionEnabled = false
         
         if birdView.center.x > self.skyView.bounds.minX + birdView.bounds.width {
             let randomLength = CGFloat.random(in: 30...200)
             
             let movementAnimation = CABasicAnimation(keyPath: "position")
             movementAnimation.duration = 1
-            movementAnimation.fromValue = [birdView.center.x, birdView.center.y]
-            movementAnimation.toValue = [birdView.center.x - randomLength, birdView.center.y]
-
+            movementAnimation.fromValue = NSValue(cgPoint: CGPoint(x: birdView.center.x, y: birdView.center.y))
+            movementAnimation.toValue = NSValue(cgPoint: CGPoint(x: birdView.center.x - randomLength, y: birdView.center.y))
+            
             let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation")
             rotationAnimation.fromValue = 0.0
             rotationAnimation.toValue = -Float.pi * 2
@@ -200,8 +198,6 @@ class PlaygroundViewController: UIViewController, ViewControllerDelegate {
             
             self.birdsOnPlayground[birdView]?.lastMovementX = Float(birdView.center.x - birdView.bounds.width / 2)
             
-            // вот тут проблема
-            // если не добавлять анимацию - то все работает
             birdView.layer.add(movementAnimation, forKey: "position")
             birdView.layer.add(rotationAnimation, forKey: "transform.rotation")
             birdView.center.x -= randomLength
@@ -254,8 +250,8 @@ class PlaygroundViewController: UIViewController, ViewControllerDelegate {
         if birdView.center.x + randomLength < self.skyView.bounds.maxX - birdView.bounds.width  {
             let movementAnimation = CABasicAnimation(keyPath: "position")
             movementAnimation.duration = 1
-            movementAnimation.fromValue = [birdView.center.x, birdView.center.y]
-            movementAnimation.toValue = [birdView.center.x + randomLength, birdView.center.y]
+            movementAnimation.fromValue = NSValue(cgPoint: CGPoint(x: birdView.center.x, y: birdView.center.y))
+            movementAnimation.toValue = NSValue(cgPoint: CGPoint(x: birdView.center.x + randomLength, y: birdView.center.y))
             
             birdsOnPlayground[birdView]?.lastMovementX = Float(birdView.center.x - birdView.bounds.width / 2)
             birdsOnPlayground[birdView]?.lastMovementY = Float(birdView.center.y - birdView.bounds.height / 2)
@@ -274,12 +270,7 @@ class PlaygroundViewController: UIViewController, ViewControllerDelegate {
             timer.invalidate()
             birdsInFlight[birdView] = nil
             birdView.layer.removeAllAnimations()
-            
-            print(birdsInFlight.count)
-            
-            if birdsInFlight.count == 0 {
-                skyView.isUserInteractionEnabled = true
-            }
+            birdView.isUserInteractionEnabled = true
             
             DatabaseManager.shared.updateCoreDataBird()
         }
@@ -295,6 +286,7 @@ class PlaygroundViewController: UIViewController, ViewControllerDelegate {
                 
                 $0.center.x = skyCoordinateX
                 $0.center.y = skyCoordinateY
+                $0.isUserInteractionEnabled = false
                 
                 birdsInFlight[$0]?.invalidate()
                 
@@ -320,14 +312,13 @@ class PlaygroundViewController: UIViewController, ViewControllerDelegate {
                 $0.center.x = landedCoordinateX
                 $0.center.y = landedCoordinateY
                 $0.layer.removeAllAnimations()
+                $0.isUserInteractionEnabled = true
                 
                 birdsInFlight[$0]?.invalidate()
                 
                 birdsOnPlayground[$0]?.x = Float(landedCoordinateX - viewWidth / 2)
                 birdsOnPlayground[$0]?.y = Float(landedCoordinateY - viewHeight / 2)
                 birdsOnPlayground[$0]?.isFlying = false
-                
-                skyView.isUserInteractionEnabled = true
                 
                 DatabaseManager.shared.updateCoreDataBird()
             }
