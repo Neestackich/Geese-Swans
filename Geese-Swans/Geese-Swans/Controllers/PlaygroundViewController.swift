@@ -179,8 +179,6 @@ class PlaygroundViewController: UIViewController, ViewControllerDelegate {
             return
         }
         
-        birdView.isUserInteractionEnabled = false
-        
         if birdView.center.x > self.skyView.bounds.minX + birdView.bounds.width {
             let randomLength = CGFloat.random(in: 30...200)
             
@@ -270,7 +268,6 @@ class PlaygroundViewController: UIViewController, ViewControllerDelegate {
             timer.invalidate()
             birdsInFlight[birdView] = nil
             birdView.layer.removeAllAnimations()
-            birdView.isUserInteractionEnabled = true
             
             DatabaseManager.shared.updateCoreDataBird()
         }
@@ -286,7 +283,6 @@ class PlaygroundViewController: UIViewController, ViewControllerDelegate {
                 
                 $0.center.x = skyCoordinateX
                 $0.center.y = skyCoordinateY
-                $0.isUserInteractionEnabled = false
                 
                 birdsInFlight[$0]?.invalidate()
                 
@@ -312,7 +308,6 @@ class PlaygroundViewController: UIViewController, ViewControllerDelegate {
                 $0.center.x = landedCoordinateX
                 $0.center.y = landedCoordinateY
                 $0.layer.removeAllAnimations()
-                $0.isUserInteractionEnabled = true
                 
                 birdsInFlight[$0]?.invalidate()
                 
